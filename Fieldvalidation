@@ -1,0 +1,44 @@
+function validateAndAutoSave(executionContext) {
+    debugger;
+    var formContext = executionContext.getFormContext();
+    var mobile = formContext.getAttribute("mobilephone").getValue();
+    var jobTitle = formContext.getAttribute("jobtitle").getValue();
+
+    formContext.ui.clearFormNotification("validationError");
+
+    var jobTitleRegex = /^[0-9]/;
+    if (jobTitle && jobTitleRegex.test(jobTitle)) {
+        executionContext.getEventArgs().preventDefault();
+        showAlert("Job Title cannot start with a numeric value.");
+        return;
+    }
+
+    if (!mobile || mobile.length < 10) {
+        executionContext.getEventArgs().preventDefault();
+        showAlert("Please enter a valid Mobile Number before saving.");
+        return;
+    }
+
+    showAlert("Form is valid. Saving now...", function () {
+        setTimeout(function () {
+            formContext.data.save();
+        }, 10000); // Small delay to prevent looping
+    });
+}
+
+function showAlert(message, callback) {
+    var alertOptions = { height: 200, width: 450 };
+    var alertMessage = { confirmButtonLabel: "OK", text: message };
+
+    return Xrm.Navigation.openAlertDialog(alertMessage, alertOptions).then(
+        function () {
+            if (callback) {
+                callback();
+            }
+        }
+    );
+}
+
+function onSave(executionContext) {
+    validateAndAutoSave(executionContext);
+}
