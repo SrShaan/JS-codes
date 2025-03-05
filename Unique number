@@ -1,0 +1,11 @@
+function accountContactNumber(executionContext){
+    debugger;
+    var formContext = executionContext.getFormContext();
+    var formtype = formContext.ui.getFormType();
+    if (formtype !== 1){ //create=1, update=2
+        return;
+    }
+    var randomNumber = Math.floor(1000+Math.random()*9000);
+    var uniqueNumber = "Contact" + "-" + randomNumber + "-"+Date.now();
+    formContext.getAttribute("cr262_accountcontactnumber").setValue(uniqueNumber);
+}
