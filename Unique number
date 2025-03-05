@@ -7,5 +7,5 @@ function accountContactNumber(executionContext){
     }
     var randomNumber = Math.floor(1000+Math.random()*9000);
     var uniqueNumber = "Contact" + "-" + randomNumber + "-"+Date.now();
-    formContext.getAttribute("cr262_accountcontactnumber").setValue(uniqueNumber);
+    formContext.getAttribute("logicalnameof field").setValue(uniqueNumber);
 }
