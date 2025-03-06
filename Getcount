@@ -1,0 +1,14 @@
+function updateSubgridRecordCount(executionContext) {
+    var formContext = executionContext.getFormContext();
+    var subgrid = formContext.getControl("Contacts");
+
+    if (subgrid) {
+        subgrid.addOnLoad(function () {  
+            var grid = subgrid.getGrid();
+            if (grid && grid.getRows()) {
+                var rowCount = grid.getRows().getLength(); 
+                formContext.getAttribute("cr262_totalnumberofcontacts").setValue(rowCount.toString());
+            }
+        });
+    }
+}
