@@ -1,0 +1,27 @@
+function validateSubgridReccords(executionContext){
+    var formCOntext = execcutionContext.getFormContext();
+    var subgrid = formCOntext.getControl("Contacts");
+    if (subgrid){
+        subgrid.addOnLoad(function(){
+            var grid = subgrid.getGrid();
+            if (grid){
+                var rows = grid.getRows();
+                var missingEmailCount =0;
+                rows.forEach(function(row){
+                    var email = row.getData().getEntity().attributes.get("emailaddress1");
+                    if (email == null && email.getValue()==null){
+                        missingEmailCount++;
+                    }
+                });
+                if(missingEmailCount >0){
+                    showAlert ("⚠️ Contacts with missing email:"+ missingEmailCount);
+                }
+            }
+        });
+    }
+}
+function showAlert (message){
+    var alertOptions ={hight:200,width:450};
+    var alertMessage = { confirmButtonLable:"OK",text:message};
+    return Xrm.Navigation.opetionAlertDialog(alertMessage,alertOptions);
+}
