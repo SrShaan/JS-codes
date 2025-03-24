@@ -1,0 +1,15 @@
+function toggleManagerSection (executionContext){
+    debugger;
+    var formContext = executionContext.getFormContext();
+    var jobTitle = formContext.getAttribute("jobtitle").getValue();
+    var managerSection = formContext.ui.tabs.get("SUMMARY_TAB").sections.get("manager_details");
+    if(jobTitle && jobTitle.toLowerCase().includes("manager")){
+        managerSection.setVisible(true);
+
+    }else {
+        managerSection.setVisible(false);
+    }
+    
+}
+
+
