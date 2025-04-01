@@ -1,0 +1,33 @@
+function capitalizeFirstLetter(executionContext) {
+    debugger; // Pauses script execution for debugging in browser's developer tools
+
+    var formContext = executionContext.getFormContext(); 
+    // Retrieves the form context from the executionContext
+    // This allows us to interact with fields on the form
+
+    var nameField = formContext.getAttribute("firstname"); 
+    // Gets the "firstname" field from the form using getAttribute()
+    // This allows us to read and update its value
+
+    var nameValue = nameField.getValue(); 
+    // Retrieves the current value entered in the "firstname" field
+
+    if (nameValue) { 
+        // Checks if the field has a value (not null or empty)
+        
+        nameValue = nameValue.trim(); 
+        // Removes any leading or trailing spaces from the name
+
+        var formattedName = nameValue.charAt(0).toUpperCase() + nameValue.slice(1).toLowerCase(); 
+        // Converts the first letter to uppercase and the rest to lowercase
+        // Example: "john" → "John", "mARY" → "Mary"
+
+        if (nameValue !== formattedName) { 
+            // Checks if the formatted name is different from the original value
+            // Prevents unnecessary updates
+
+            nameField.setValue(formattedName); 
+            // Updates the "firstname" field with the correctly formatted name
+        }
+    }
+}
