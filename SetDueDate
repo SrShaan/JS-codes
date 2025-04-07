@@ -1,0 +1,9 @@
+function setDueDate(executionContext){
+    var formContext = executionContext.getFormContext();
+    var dueDateField = formContext.getAttribute("scheduledend");
+    if(!dueDateField.getValue()){
+        var currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() + 7);
+        dueDateField.setValue(currentDate);
+    }
+}
