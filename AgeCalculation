@@ -1,0 +1,25 @@
+function calculateAgeInYear(executionContext){
+    var formContext =executionContext.getFormContext();
+    var dob = formContext.getAttribute("dvmske_dateofbirth").getValue();
+    if (dob !== null){
+        var today = new Date();
+        var years = today.getFullYear()-dob.getFullYear();
+        var months = today.getMonth()-dob.getMonth();
+         if (months < 0 || (months === 0 && today.getDate()< dob.getDate())){
+            years--;
+            months+= 12;
+         }
+         if (today.getDate() < dob.getDate()){
+            months--;
+            if (months < 0){
+                years--;
+                months+=12;
+            }
+         }
+         var ageFormatted = years + "year" +(years !== 1? "s":"")+ "and" + months + "month" +(months !== 1? "s": "");
+         formContext.getAttribute("dvmske_age").setValue(ageFormatted);
+    }
+    else {
+        formContext.getAttribute("dvmske_age").setValue(null);
+    }
+}
