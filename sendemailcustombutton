@@ -1,0 +1,25 @@
+// JavaScript source code
+function sendWelcomeEmail(primaryControl) {
+    var formContext = primaryControl;
+    var contactid = formContext.data.entity.getId().replace(/[{}]/g, "");
+    var flowUrl = "Paste_yourFlowURL";
+    Xrm.Utility.showProgressIndicator("Sending welcome email...");
+    var req = new XMLHttpRequest();
+    req.open("POST", flowUrl, true);
+    req.setRequestHeader("Content-Type", "application/json");
+
+    req.onreadystatechange = function () {
+        if (req.readyState === 4) {
+
+            Xrm.Utility.closeProgressIndicator();
+            if (req.status === 200) {
+                Xrm.Navigation.openAlertDialog({ text: "Welcome email sent successfully!" });
+            }
+            else {
+                Xrm.Navigation.openAlertDialog({ text: "Error sending email.Please try again." });
+            }
+        }
+    };
+    var data = JSON.stringify({ "contactId": contactid });
+
+    req.send(data);
